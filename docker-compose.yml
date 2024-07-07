@@ -1,0 +1,45 @@
+services:
+  composer-install:
+    build: build/composer-install
+    volumes:
+      - ../app:/app
+  phpstan:
+    build: build/phpstan
+    volumes:
+      - ../app:/app
+      - ./results:/results
+    depends_on:
+      composer-install:
+        condition: service_completed_successfully
+  composer-outdated:
+    build: build/composer-outdated
+    volumes:
+      - ../app:/app
+      - ./results:/results
+    depends_on:
+      composer-install:
+        condition: service_completed_successfully
+  composer-audit:
+    build: build/composer-audit
+    volumes:
+      - ../app:/app
+      - ./results:/results
+    depends_on:
+      composer-install:
+        condition: service_completed_successfully
+  phpcs:
+    build: build/phpcs
+    volumes:
+      - ../app:/app
+      - ./results:/results
+    depends_on:
+      composer-install:
+        condition: service_completed_successfully
+  phpunit:
+    build: build/phpunit
+    volumes:
+      - ../app:/app
+      - ./results:/results
+    depends_on:
+      composer-install:
+        condition: service_completed_successfully
