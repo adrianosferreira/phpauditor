@@ -7,3 +7,4 @@ Checks
 - Composer audit
 - Composer outdated
 - PHPCodeSniffer
+- PHPUnit Coverage
